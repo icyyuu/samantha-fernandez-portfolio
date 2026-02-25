@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Portfolio Category - Samantha Fernandez</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* Category Page Styles */
+    .category-header {
+      background-image: url('assets/img/testimonials-bg.jpg');
+      color: white;
+      padding: 60px 0;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .category-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 120, 255, 0.7);
+      z-index: 0;
+    }
+
+    .category-header .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-header h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .category-header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      color: #cce0ff;
+      transform: translateX(-5px);
+    }
+
+    /* Photo Gallery Grid */
+    .gallery-container {
+      margin: 40px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px 0;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 220px;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:hover video {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay i {
+      color: white;
+      font-size: 32px;
+    }
+
+    /* Video play badge */
+    .video-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 120, 255, 0.85);
+      color: white;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Modal Lightbox */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      overflow: auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
+
+    .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Close Button */
+    .close-modal {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
+      transition: transform 0.2s ease;
+      background: rgba(0, 0, 0, 0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-modal:hover {
+      transform: scale(1.1);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Navigation Arrows */
+    .modal-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 35px;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+      background: rgba(0, 0, 0, 0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .modal-nav:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-prev { left: 20px; }
+    .modal-next { right: 20px; }
+
+    /* Image Counter */
+    .image-counter {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      z-index: 1001;
+    }
+
+    /* Zoom Controls */
+    .zoom-controls {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      gap: 10px;
+      z-index: 1001;
+    }
+
+    .zoom-btn {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s ease;
+    }
+
+    .zoom-btn:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-state i {
+      font-size: 60px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+      }
+
+      .gallery-item { height: 150px; }
+
+      .category-header h1 { font-size: 32px; }
+
+      .close-modal,
+      .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+      }
+
+      .modal-prev { left: 10px; }
+      .modal-next { right: 10px; }
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">SF</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Category Header -->
+    <section class="category-header">
+      <div class="container">
+        <a href="index.html#portfolio" class="back-button">
+          <i class="bi bi-arrow-left"></i>
+          Back to Portfolio
+        </a>
+        <h1 id="categoryTitle">Loading...</h1>
+        <p id="categoryDescription">Complete collection of works in this category</p>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-container">
+      <div class="container">
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Gallery items will be dynamically loaded here -->
+        </div>
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <i class="bi bi-image"></i>
+          <h3>No works in this category yet</h3>
+          <p>Check back soon for new additions!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="imageModal" class="modal">
+    <div class="modal-content-wrapper">
+      <img class="modal-content" id="modalImage" alt="Full size image" style="display:none;">
+      <video class="modal-content" id="modalVideo" controls style="display:none;"></video>
+    </div>
+    <span class="close-modal" id="closeBtn">&times;</span>
+    <div class="modal-prev modal-nav" id="prevBtn">❮</div>
+    <div class="modal-next modal-nav" id="nextBtn">❯</div>
+    <div class="image-counter" id="imageCounter">1 / 1</div>
+  </div>
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright text-center">
+        <p>Samantha Fernandez</p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a target="_blank" href="mailto:samlfernandez141@gmail.com"><i class="bi bi-envelope"></i></a>
+        <a target="_blank" href="https://www.facebook.com/bscenexz.lapuz"><i class="bi bi-facebook"></i></a>
+        <a target="_blank" href="https://www.instagram.com/_zeexz/"><i class="bi bi-instagram"></i></a>
+        <a target="_blank" href="https://www.linkedin.com/in/samantha-fernandez-314898278/"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Portfolio Data Structure
+    const portfolioData = {
+      'advisories': {
+        title: 'Advisories',
+        description: "LUDECO's advisories and announcements",
+        count: 5,
+        images: [
+          { url: "Advisories/advisory-1.png", title: 'Advisory 1' },
+          { url: 'Advisories/advisory-2.png', title: 'Advisory 2' },
+          { url: 'Advisories/advisory-3.png', title: 'Advisory 3' },
+          { url: 'Advisories/advisory-4.png', title: 'Advisory 4' },
+          { url: 'Advisories/advisory-5.png', title: 'Advisory 5' },
+          { url: 'Advisories/advisory-6.png', title: 'Advisory 6' },
+          { url: 'Advisories/advisory-7.png', title: 'Advisory 7' },
+          { url: 'Advisories/advisory-8.png', title: 'Advisory 8' },
+          { url: 'Advisories/advisory-9.png', title: 'Advisory 9' },
+          { url: 'Advisories/advisory-10.png', title: 'Advisory 10' },
+          { url: 'Advisories/advisory-11.png', title: 'Advisory 11' },
+          { url: 'Advisories/advisory-12.png', title: 'Advisory 12' }
+        ]
+      },
+      'logo-design': {
+        title: 'Logo Design',
+        description: 'Modern and Logo Design projects',
+        count: 8,
+        images: [
+          { url: 'Logo Design/LUDECO01.jpg', title: 'Logo Design 1' },
+          { url: 'Logo Design/LUDECO02.jpg', title: 'Logo Design 2' },
+          { url: 'Logo Design/LUDECO03.jpg', title: 'Logo Design 3' },
+          { url: 'Logo Design/SWIFT-LOGO-MONOGRAM.png', title: 'Logo Design 4' },
+          { url: 'Logo Design/SWIFT-LOGO-TITLE.png', title: 'Logo Design 5' },
+          { url: 'Logo Design/SWIFT-LOGO-06.png', title: 'Logo Design 6' }
+        ]
+      },
+      'infographic': {
+        title: 'Infographic',
+        description: 'Creative Infographic works and digital art',
+        count: 12,
+        images: [
+          { url: 'Infographics/CYCLING.jpg', title: 'Infographic 1' },
+          { url: 'Infographics/SWIMMING.jpg', title: 'Infographic 2' },
+          { url: 'Infographics/in.png', title: 'Infographic 3' },
+          { url: 'Infographics/out.png', title: 'Infographic 4' }
+        ]
+      },
+      'mockup-shirts': {
+        title: 'Mockup Shirts',
+        description: 'Mockup designs for shirts and apparel',
+        count: 6,
+        images: [
+          { url: 'Mockup-shirts/Monday-Front.jpeg', title: 'Mockup Shirt 1' },
+          { url: 'Mockup-shirts/Monday-Back.jpeg', title: 'Mockup Shirt 2' },
+          { url: 'Mockup-shirts/Tuesday-Front.jpeg', title: 'Mockup Shirt 3' },
+          { url: 'Mockup-shirts/Tuesday-Back.jpeg', title: 'Mockup Shirt 4' },
+          { url: 'Mockup-shirts/Wednesday-Front.jpeg', title: 'Mockup Shirt 5' },
+          { url: 'Mockup-shirts/Wednesday-Back.jpeg', title: 'Mockup Shirt 6' },
+          { url: 'Mockup-shirts/Thursday-Front.jpeg', title: 'Mockup Shirt 7' },
+          { url: 'Mockup-shirts/Thursday-Back.jpeg', title: 'Mockup Shirt 8' },
+          { url: 'Mockup-shirts/Friday-Front.jpeg', title: 'Mockup Shirt 9' },
+          { url: 'Mockup-shirts/Friday-Back.jpeg', title: 'Mockup Shirt 10' }
+        ]
+      },
+      'web-design': {
+        title: 'Web Design',
+        description: 'User interface and user experience designs',
+        count: 7,
+        images: [
+          { url: 'Web/index.png', title: 'Web Design 1' }
+        ]
+      },
+      'advertisement': {
+        title: 'Advertisements',
+        description: 'Marketing and promotional videos',
+        count: 10,
+        images: [
+          { url: 'Video-ads/Valentines 2026.mp4', title: 'Advertisement 2' },
+          { url: 'Video-ads/LUDECO-AD-2026.mp4', title: 'Advertisement 1' },
+          { url: 'Video-ads/Gōngxǐ fācái.mp4', title: 'Advertisement 3' }
+          
+        ]
+      }
+    };
+
+    let currentCategory = '';
+    let currentImageIndex = 0;
+    let currentImages = [];
+
+    function isVideo(url) {
+      return /\.(mp4|webm|ogg)$/i.test(url);
+    }
+
+    // Get category from URL
+    function getCategoryFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('category') || 'advisories';
+    }
+
+    // Initialize page
+    function initPage() {
+      currentCategory = getCategoryFromURL();
+      const category = portfolioData[currentCategory];
+
+      if (!category) {
+        document.getElementById('categoryTitle').textContent = 'Category Not Found';
+        document.getElementById('emptyState').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('categoryTitle').textContent = category.title;
+      document.getElementById('categoryDescription').textContent = category.description;
+
+      loadGallery(category);
+    }
+
+    // Load gallery items
+    function loadGallery(category) {
+      const gallery = document.getElementById('galleryGrid');
+      const emptyState = document.getElementById('emptyState');
+
+      currentImages = category.images;
+
+      if (currentImages.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      gallery.innerHTML = '';
+      currentImages.forEach((image, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+
+        if (isVideo(image.url)) {
+          item.innerHTML = `
+            <video src="${image.url}" muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;"
+              onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0">
+            </video>
+            <div class="video-badge"><i class="bi bi-play-fill"></i> VIDEO</div>
+            <div class="gallery-overlay">
+              <i class="bi bi-play-circle"></i>
+            </div>
+          `;
+        } else {
+          item.innerHTML = `
+            <img src="${image.url}" alt="${image.title}" loading="lazy">
+            <div class="gallery-overlay">
+              <i class="bi bi-search"></i>
+            </div>
+          `;
+        }
+
+        item.addEventListener('click', () => openLightbox(index));
+        gallery.appendChild(item);
+      });
+    }
+
+    // Lightbox functions
+    function openLightbox(index) {
+      currentImageIndex = index;
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalVideo = document.getElementById('modalVideo');
+      const url = currentImages[currentImageIndex].url;
+
+      if (isVideo(url)) {
+        modalVideo.src = url;
+        modalVideo.style.display = 'block';
+        modalImage.style.display = 'none';
+      } else {
+        modalImage.src = url;
+        modalImage.style.display = 'block';
+        modalVideo.style.display = 'none';
+        modalVideo.pause();
+        modalVideo.src = '';
+      }
+
+      modal.style.display = 'block';
+      updateCounter();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('imageModal');
+      const modalVideo = document.getElementById('modalVideo');
+      modalVideo.pause();
+      modalVideo.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+      const url = currentImages[currentImageIndex].url;
+      const modalImage = document.getElementById('modalImage');
+      const modalVideo = document.getElementById('modalVideo');
+
+      if (isVideo(url)) {
+        modalVideo.src = url;
+        modalVideo.style.display = 'block';
+        modalImage.style.display = 'none';
+      } else {
+        modalImage.src = url;
+        modalImage.style.display = 'block';
+        modalVideo.pause();
+        modalVideo.src = '';
+        modalVideo.style.display = 'none';
+      }
+      updateCounter();
+    }
+
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+      const url = currentImages[currentImageIndex].url;
+      const modalImage = document.getElementById('modalImage');
+      const modalVideo = document.getElementById('modalVideo');
+
+      if (isVideo(url)) {
+        modalVideo.src = url;
+        modalVideo.style.display = 'block';
+        modalImage.style.display = 'none';
+      } else {
+        modalImage.src = url;
+        modalImage.style.display = 'block';
+        modalVideo.pause();
+        modalVideo.src = '';
+        modalVideo.style.display = 'none';
+      }
+      updateCounter();
+    }
+
+    function updateCounter() {
+      document.getElementById('imageCounter').textContent =
+        `${currentImageIndex + 1} / ${currentImages.length}`;
+    }
+
+    // Event listeners
+    document.getElementById('closeBtn').addEventListener('click', closeLightbox);
+    document.getElementById('nextBtn').addEventListener('click', nextImage);
+    document.getElementById('prevBtn').addEventListener('click', prevImage);
+
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('imageModal');
+      if (modal.style.display !== 'block') return;
+
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    window.addEventListener('DOMContentLoaded', initPage);
+  </script>
+
+</body>
+
+</html>
